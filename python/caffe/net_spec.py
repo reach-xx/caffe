@@ -71,6 +71,8 @@ def assign_proto(proto, name, val):
                 for k, v in six.iteritems(item):
                     assign_proto(proto_item, k, v)
         else:
+            print("proto: ", proto)
+            print("name: ", name)
             getattr(proto, name).extend(val)
     elif isinstance(val, dict):
         for k, v in six.iteritems(val):
@@ -206,6 +208,9 @@ class NetSpec(object):
         autonames = Counter()
         layers = OrderedDict()
         for name, top in six.iteritems(self.tops):
+            # print("layers: ", layers)
+            # print("names: ", names)
+            # print("top: ", top)
             top._to_proto(layers, names, autonames)
         net = caffe_pb2.NetParameter()
         net.layer.extend(layers.values())
